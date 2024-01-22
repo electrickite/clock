@@ -1,0 +1,19 @@
+{
+  "name": "Simple Clock",
+  "short_name": "Clock",
+  "description": "Simple clock with seconds and date display",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "author": {
+    "name": "Corey Hinshaw",
+    "website": "https://electrickite.org/clock/"
+  }
+}

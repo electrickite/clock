@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>Simple Clock</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="img/icon-180x180.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="img/icon-180x180.png">
+
+    <style>
+      html {
+        background-color: #eee;
+        color: #111;
+        font-family: sans-serif;
+        padding-top: 20px;
+      }
+      #clock, #day {
+        text-align: center;
+        font-family: mono;
+        font-size: 24px;
+        margin-bottom: 48px;
+      }
+      #clock {
+        font-size: 48px;
+      }
+
+      @media(prefers-color-scheme:dark) {
+        html { background-color:#111; color:#eee; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="day"></div>
+    <div id="clock"></div>
+
+    <script>
+      let clock = document.getElementById('clock');
+      let day = document.getElementById('day');
+
+      function scheduleUpdate() {
+        let t = 1000 - (new Date().getMilliseconds());
+        if (t < 15) t+=1000;
+        setInterval(updateClock, t);
+      }
+
+      function updateClock() {
+        let time = new Date();
+        let timeStr = time.toLocaleString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        });
+        let dayStr = time.toLocaleString('en-US', {
+          weekday: 'short',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        clock.textContent = timeStr;
+        day.textContent = dayStr;
+        scheduleUpdate();
+      }
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+        .register('./sw.js')
+        .then(function() {
+          console.log('Service Worker registered');
+        });
+      }
+
+      updateClock();
+    </script>
+  </body>
+</html>
