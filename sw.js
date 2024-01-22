@@ -1,4 +1,4 @@
-const VERSION = 2;
+const VERSION = 3;
 let cacheName = 'clock-v' + VERSION;
 
 let filesToCache = [
